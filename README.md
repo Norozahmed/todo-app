@@ -2,7 +2,7 @@
 
 A simple and elegant Todo List web application built with **Flask** (Python) and styled with **Tailwind CSS**. This app allows users to add, delete, and mark tasks as complete. It’s a great example of a full-stack web application with a clean and modern UI.
 
-![Todo List App Screenshot]("C:\Users\PAK\OneDrive\Pictures\Screenshots\todo_app.png") <!-- Add a screenshot of your app here -->
+![Todo List App Screenshot]("http://127.0.0.1:5000/") <!-- Add a screenshot of your app here -->
 
 ---
 
