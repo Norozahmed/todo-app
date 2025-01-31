@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Todo List</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <div class="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-lg mt-10">
+        <h1 class="text-3xl font-bold text-center mb-6">Todo List</h1>
+        
+        <!-- Add Task Form -->
+        <form action="/" method="POST" class="mb-6">
+            <div class="flex gap-2">
+                <input type="text" name="content" placeholder="Add a task..." 
+                       class="flex-1 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <button type="submit" 
+                        class="p-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-200">
+                    Add Task
+                </button>
+            </div>
+        </form>
+
+        <!-- Task List -->
+        <div class="space-y-4">
+            {% for task in tasks %}
+                <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg shadow-sm">
+                    <div class="flex items-center gap-3">
+                        <input type="checkbox" {% if task.completed %}checked{% endif %} 
+                               onchange="toggleComplete('{{ task.id }}')"
+                               class="w-5 h-5 text-blue-500 rounded border-gray-300 focus:ring-blue-500">
+                        <span class="text-lg {% if task.completed %}line-through text-gray-400{% endif %}">
+                            {{ task.content }}
+                        </span>
+                    </div>
+                    <a href="/delete/{{ task.id }}" 
+                       class="p-2 text-red-500 hover:text-red-700 transition duration-200">
+                        Delete
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- Clear All Button -->
+        <form action="/clear" method="POST" class="mt-6">
+            <button type="submit" 
+                    class="w-full p-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition duration-200">
+                Clear All Tasks
+            </button>
+        </form>
+    </div>
+
+    <script>
+        function toggleComplete(taskId) {
+            fetch(`/toggle/${taskId}`)
+                .then(response => window.location.reload());
+        }
+    </script>
+</body>
+</html>
